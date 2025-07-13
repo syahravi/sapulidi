@@ -11,7 +11,7 @@ use Filament\Panel;
 use Filament\PanelProvider;
 use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
 use Filament\Support\Colors\Color;
-use Filament\Widgets; // Pastikan ini di-import
+use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -37,19 +37,21 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Green,
             ])
+            // --- INI BAGIAN YANG DIUBAH ---
+            ->favicon(asset('assets/images/logo.png')) // Menunjuk ke path favicon yang baru
+            // -----------------------------
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
-                Pages\Dashboard::class, // Tetap gunakan dashboard bawaan Filament
+                Pages\Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                // // Daftarkan widget kustom Anda di sini
-                AppStatsOverview::class,    // Widget untuk statistik ringkasan
-                IncomingWasteChart::class,  // Widget untuk grafik sampah masuk
-                RevenueChart::class,        // Widget untuk grafik pendapatan
-                Widgets\AccountWidget::class,     // Opsional: hapus jika tidak ingin menampilkan
-                Widgets\FilamentInfoWidget::class, // Opsional: hapus jika tidak ingin menampilkan
+                AppStatsOverview::class,
+                IncomingWasteChart::class,
+                RevenueChart::class,
+                Widgets\AccountWidget::class,
+                Widgets\FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
