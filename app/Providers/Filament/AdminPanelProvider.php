@@ -37,8 +37,9 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Green,
             ])
-            // --- INI BAGIAN YANG DIUBAH ---
             ->favicon(asset('assets/images/logo.png')) // Menunjuk ke path favicon yang baru
+            // --- INI BAGIAN YANG DIUBAH ---
+            ->homeUrl('/') // Mengatur URL untuk nama aplikasi/brand ke root URL
             // -----------------------------
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
