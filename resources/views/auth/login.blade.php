@@ -2,8 +2,7 @@
 
 @section('section')
     <div class="w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 bg-white rounded-xl shadow-lg overflow-hidden">
-        <!-- Left Content: Motivational Quote -->
-        <div class="bg-green-700 flex flex-col justify-center text-white">
+        <div class="bg-green-700 hidden md:flex flex-col justify-center text-white">
             <div class="mx-auto text-center p-10">
                 <h1 class="text-3xl font-bold mb-4">Sampah Bukan Akhir</h1>
                 <p class="text-lg font-light">
@@ -11,23 +10,20 @@
                     dan bernilai melalui daur ulang dan kepedulian.
                 </p>
                 <img src="{{ asset('assets/images/login.svg') }}"
-                     alt="Ilustrasi Daur Ulang" class="w-full h-auto mx-auto mt-6" />
+                    alt="Ilustrasi Daur Ulang" class="w-full h-auto mx-auto mt-6" />
             </div>
         </div>
 
-        <!-- Right Content: Login Form -->
         <div class="p-10">
             <h2 class="text-3xl font-bold text-green-700 mb-2">Masuk Akun Anda</h2>
             <p class="text-sm text-gray-500 mb-6">Gunakan email dan password Anda untuk masuk.</p>
 
-            <!-- Session Status -->
             @if (session('status'))
                 <div class="mb-4 text-sm text-green-600">
                     {{ session('status') }}
                 </div>
             @endif
 
-            <!-- Validation Errors -->
             @if ($errors->any())
                 <div class="mb-4 text-sm text-red-600">
                     <ul class="list-disc pl-5 space-y-1">
