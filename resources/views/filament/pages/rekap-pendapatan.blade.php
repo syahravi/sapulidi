@@ -4,7 +4,8 @@
     {{ $this->form }}
 
     <h2 class="text-xl font-bold mt-4">Rekap Pendapatan dari Warga ({{ $this->startDate }} - {{ $this->endDate }})</h2>
-    <p class="text-lg font-semibold mb-4">Total Pendapatan: {{ number_format($this->getTotalCitizenRevenue(), 2, ',', '.') }} Rp</p>
+    <p class="text-lg font-semibold mb-4">Total Pendapatan:
+        {{ number_format($this->getTotalCitizenRevenue(), 2, ',', '.') }} Rp</p>
 
     <div class="overflow-x-auto">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 filament-tables-table">
@@ -20,8 +21,10 @@
                 @forelse($this->getCitizenRevenueSummary() as $summary)
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                         <td class="px-6 py-4">{{ $summary->citizen_name }}</td>
-                        <td class="px-6 py-4">{{ number_format($summary->total_weight, 2) }} kg</td>
-                        <td class="px-6 py-4">{{ number_format($summary->total_amount, 2, ',', '.') }} Rp</td>
+                        {{-- FIX: Changed to total_waste_weight --}}
+                        <td class="px-6 py-4">{{ number_format($summary->total_waste_weight, 2, ',', '.') }} kg</td>
+                        {{-- FIX: Changed to total_amount_paid --}}
+                        <td class="px-6 py-4">{{ number_format($summary->total_amount_paid, 2, ',', '.') }} Rp</td>
                     </tr>
                 @empty
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
@@ -32,8 +35,10 @@
         </table>
     </div>
 
-    <h2 class="text-xl font-bold mt-8">Rekap Pendapatan dari Sampah Dijual ({{ $this->startDate }} - {{ $this->endDate }})</h2>
-    <p class="text-lg font-semibold mb-4">Total Pendapatan: {{ number_format($this->getTotalSortedWasteRevenue(), 2, ',', '.') }} Rp</p>
+    <h2 class="text-xl font-bold mt-8">Rekap Pendapatan dari Sampah Dijual ({{ $this->startDate }} -
+        {{ $this->endDate }})</h2>
+    <p class="text-lg font-semibold mb-4">Total Pendapatan:
+        {{ number_format($this->getTotalSortedWasteRevenue(), 2, ',', '.') }} Rp</p>
 
     <div class="overflow-x-auto">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 filament-tables-table">
@@ -49,12 +54,15 @@
                 @forelse($this->getSortedWasteRevenueSummary() as $summary)
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                         <td class="px-6 py-4">{{ $summary->wasteType->name }}</td>
-                        <td class="px-6 py-4">{{ number_format($summary->total_weight, 2) }} kg</td>
-                        <td class="px-6 py-4">{{ number_format($summary->total_amount, 2, ',', '.') }} Rp</td>
+                        {{-- FIX: Changed to total_sold_weight --}}
+                        <td class="px-6 py-4">{{ number_format($summary->total_sold_weight, 2, ',', '.') }} kg</td>
+                        {{-- FIX: Changed to total_amount_received --}}
+                        <td class="px-6 py-4">{{ number_format($summary->total_amount_received, 2, ',', '.') }} Rp</td>
                     </tr>
                 @empty
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                        <td colspan="3" class="px-6 py-4 text-center">Tidak ada data pendapatan dari sampah dijual.</td>
+                        <td colspan="3" class="px-6 py-4 text-center">Tidak ada data pendapatan dari sampah dijual.
+                        </td>
                     </tr>
                 @endforelse
             </tbody>
