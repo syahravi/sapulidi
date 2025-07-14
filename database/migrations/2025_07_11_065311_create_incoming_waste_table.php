@@ -14,8 +14,7 @@ return new class extends Migration
     {
         Schema::create('incoming_waste', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('waste_type_id')->constrained('waste_types')->onDelete('cascade'); // Foreign key ke jenis sampah
-            $table->decimal('weight', 8, 2); // Berat sampah (misal: 10.50 kg)
+            $table->integer('bag_count'); // Mengubah 'weight' menjadi 'bag_count' dan tipe integer
             $table->date('entry_date'); // Tanggal sampah masuk
             $table->string('collector_name'); // Nama pengepul/pengumpul
             $table->timestamps(); // Kolom created_at dan updated_at
