@@ -4,7 +4,7 @@ namespace App\Filament\Widgets;
 
 use App\Models\IncomingWaste; // Mengimpor model IncomingWaste
 use Filament\Widgets\ChartWidget; // Mengimpor kelas dasar untuk widget grafik
-use Flowframe\Trend\Trend;      // Mengimpor Trend (pastikan sudah diinstal: composer require flowframe/laravel-trend)
+use Flowframe\Trend\Trend;       // Mengimpor Trend (pastikan sudah diinstal: composer require flowframe/laravel-trend)
 use Flowframe\Trend\TrendValue; // Mengimpor TrendValue
 
 class IncomingWasteChart extends ChartWidget
@@ -44,13 +44,13 @@ class IncomingWasteChart extends ChartWidget
                 end: now()->endOfMonth(),
             )
             ->perMonth() // Mengagregasi data per bulan
-            ->sum('weight'); // Menjumlahkan kolom 'weight' (berat) untuk setiap periode bulan
+            ->sum('bag_count'); // MENGUBAH 'weight' menjadi 'bag_count'
 
         // Mengembalikan struktur data yang diperlukan oleh Chart.js
         return [
             'datasets' => [
                 [
-                    'label' => 'Berat Sampah Masuk (kg)', // Label untuk dataset ini (akan muncul di legenda grafik)
+                    'label' => 'Jumlah Kantong Sampah Masuk', // MENGUBAH label grafik
                     // Mengambil nilai agregat dari hasil tren
                     'data' => $data->map(fn(TrendValue $value) => $value->aggregate),
                     'borderColor' => '#4CAF50', // Warna garis grafik (hijau)
