@@ -5,7 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\IncomingWasteResource\Pages;
 use App\Filament\Resources\IncomingWasteResource\RelationManagers;
 use App\Models\IncomingWaste;
-use App\Models\WasteType;
+// use App\Models\WasteType; // Baris ini tidak lagi dibutuhkan, bisa dihapus
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -34,16 +34,18 @@ class IncomingWasteResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('waste_type_id')
+                // Kolom untuk menunjukkan jenis sampah adalah "Sampah Campuran"
+                Forms\Components\Placeholder::make('jenis_sampah_placeholder')
                     ->label('Jenis Sampah')
-                    ->options(WasteType::all()->pluck('name', 'id'))
-                    ->required()
-                    ->searchable(),
-                Forms\Components\TextInput::make('weight')
-                    ->label('Berat (kg)')
+                    ->content('Sampah Campuran / Segala Jenis Sampah')
+                    ->columnSpan('full'), // Membuat placeholder menempati seluruh lebar kolom
+
+                Forms\Components\TextInput::make('bag_count')
+                    ->label('Jumlah Kantong')
                     ->required()
                     ->numeric()
-                    ->suffix('kg'),
+                    ->suffix('kantong')
+                    ->minValue(1),
                 Forms\Components\DatePicker::make('entry_date')
                     ->label('Tanggal Masuk')
                     ->required()
@@ -62,13 +64,19 @@ class IncomingWasteResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('wasteType.name')
+                // Kolom statis untuk jenis sampah
+                Tables\Columns\TextColumn::make('jenis_sampah')
                     ->label('Jenis Sampah')
-                    ->searchable()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('weight')
-                    ->label('Berat')
-                    ->suffix(' kg')
+                    ->getStateUsing(fn (): string => 'Sampah Campuran') // Menampilkan teks statis
+                    ->sortable() // Tetap bisa diurutkan (opsional)
+                    ->searchable(query: function (Builder $query, string $search): Builder {
+                        // Menambahkan fungsionalitas pencarian dasar jika diinginkan
+                        return $query->whereRaw("? LIKE '%".$search."%'", ['Sampah Campuran']);
+                    }),
+
+                Tables\Columns\TextColumn::make('bag_count')
+                    ->label('Jumlah Kantong')
+                    ->suffix(' kantong')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('entry_date')
                     ->label('Tanggal Masuk')
@@ -90,9 +98,6 @@ class IncomingWasteResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                Tables\Filters\SelectFilter::make('waste_type_id')
-                    ->label('Jenis Sampah')
-                    ->options(WasteType::all()->pluck('name', 'id')),
                 Tables\Filters\Filter::make('entry_date')
                     ->form([
                         Forms\Components\DatePicker::make('entry_date_from')
