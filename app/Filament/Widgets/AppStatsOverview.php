@@ -28,7 +28,7 @@ class AppStatsOverview extends BaseWidget
 
         // Menghitung total berat sampah masuk dari model IncomingWaste
         // Menggunakan sum() untuk menjumlahkan kolom 'weight'
-        $totalIncomingWasteWeight = IncomingWaste::sum('weight');
+        $totalIncomingWasteBags = IncomingWaste::sum('bag_count');
 
         // Menghitung total pendapatan yang dibayarkan kepada warga dari model CitizenRevenue
         // Menggunakan sum() untuk menjumlahkan kolom 'amount_paid'
@@ -47,8 +47,8 @@ class AppStatsOverview extends BaseWidget
                 ->color('info'), // Warna kartu (sesuai tema Filament)
 
             // Kartu statistik untuk Total Sampah Masuk
-            Stat::make('Total Sampah Masuk', number_format($totalIncomingWasteWeight, 2) . ' kg')
-                ->description('Total berat sampah yang masuk')
+            Stat::make('Total Sampah Masuk', number_format($totalIncomingWasteBags, 0) . ' kantong') // Menggunakan 'bag_count' dan format kantong
+                ->description('Total kantong sampah yang masuk') // Deskripsi diubah
                 ->descriptionIcon('heroicon-o-arrow-down-on-square')
                 ->color('success'),
 
