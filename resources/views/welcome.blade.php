@@ -1,6 +1,6 @@
 @extends('layouts.user-app')
 
-@section('title', 'Skilline Landing Page')
+@section('title', 'Sapulidi Landing Page')
 
 @section('content')
     <div class="bg-green-300" id="home">
