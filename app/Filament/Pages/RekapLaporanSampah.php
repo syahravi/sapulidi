@@ -4,11 +4,11 @@ namespace App\Filament\Pages;
 
 use Filament\Pages\Page;
 use App\Models\IncomingWaste;
-use App\Models\SortedWaste;
+use App\Models\SortedWaste; // Pastikan model SortedWaste masih ada jika digunakan
 use Carbon\Carbon;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Form;
-use Filament\Actions\Action; // <-- Import Action
+use Filament\Actions\Action; // Import Action
 
 class RekapLaporanSampah extends Page
 {
@@ -52,28 +52,30 @@ class RekapLaporanSampah extends Page
                 ->label('Generate PDF')
                 ->color('primary')
                 ->icon('heroicon-o-document-arrow-down') // Ikon untuk download PDF
-                ->url(fn (): string => route('reports.waste_pdf', [
+                ->url(fn(): string => route('reports.waste_pdf', [
                     'startDate' => $this->startDate,
                     'endDate' => $this->endDate,
                 ]), shouldOpenInNewTab: true), // Buka di tab baru
         ];
     }
 
-    public function getIncomingWasteSummary()
-    {
-        return IncomingWaste::whereBetween('entry_date', [$this->startDate, $this->endDate])
-            ->selectRaw('waste_type_id, SUM(weight) as total_weight')
-            ->groupBy('waste_type_id')
-            ->with('wasteType')
-            ->get();
-    }
-
     public function getSortedWasteSummary()
     {
+        // Asumsi model SortedWaste masih menggunakan waste_type_id dan weight.
+        // Jika Anda juga mengubah model SortedWaste, Anda perlu menyesuaikan ini juga.
         return SortedWaste::whereBetween('sorting_date', [$this->startDate, $this->endDate])
             ->selectRaw('waste_type_id, status, SUM(weight) as total_weight')
             ->groupBy('waste_type_id', 'status')
             ->with('wasteType')
             ->get();
+    }
+
+    public function getIncomingWasteSummary()
+    {
+        // Mengubah kueri untuk menjumlahkan 'bag_count' per 'collector_name'
+        return IncomingWaste::whereBetween('entry_date', [$this->startDate, $this->endDate])
+            ->selectRaw('collector_name, SUM(bag_count) as total_bag_count') // Tambahkan collector_name di SELECT
+            ->groupBy('collector_name') // Tambahkan GROUP BY collector_name
+            ->get(); // Gunakan get() karena kita akan mendapatkan banyak baris
     }
 }
