@@ -5,7 +5,6 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\IncomingWasteResource\Pages;
 use App\Filament\Resources\IncomingWasteResource\RelationManagers;
 use App\Models\IncomingWaste;
-// use App\Models\WasteType; // Baris ini tidak lagi dibutuhkan, bisa dihapus
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
