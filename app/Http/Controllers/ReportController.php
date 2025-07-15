@@ -25,14 +25,15 @@ class ReportController extends Controller
         $startDate = Carbon::parse($startDateString)->startOfDay();
         $endDate = Carbon::parse($endDateString)->endOfDay();
 
-        // Ambil data sampah masuk
+        // Ambil data sampah masuk berdasarkan nama pengepul dan jumlah kantong
         $incomingWasteSummary = IncomingWaste::whereBetween('entry_date', [$startDate, $endDate])
-            ->selectRaw('waste_type_id, SUM(weight) as total_weight')
-            ->groupBy('waste_type_id')
-            ->with('wasteType')
+            ->selectRaw('collector_name, SUM(bag_count) as total_bag_count') // Mengubah select dan sum
+            ->groupBy('collector_name') // Mengelompokkan berdasarkan nama pengepul
             ->get();
 
         // Ambil data sampah sortir
+        // Asumsi model SortedWaste masih menggunakan waste_type_id dan weight.
+        // Jika Anda juga mengubah model SortedWaste, Anda perlu menyesuaikan ini juga.
         $sortedWasteSummary = SortedWaste::whereBetween('sorting_date', [$startDate, $endDate])
             ->selectRaw('waste_type_id, status, SUM(weight) as total_weight')
             ->groupBy('waste_type_id', 'status')
