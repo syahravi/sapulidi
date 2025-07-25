@@ -28,7 +28,13 @@
                 <div class="mb-4 text-sm text-red-600">
                     <ul class="list-disc pl-5 space-y-1">
                         @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
+                            <li>
+                                @if ($error === 'These credentials do not match our records.')
+                                    Email atau password yang Anda masukkan salah.
+                                @else
+                                    {{ $error }}
+                                @endif
+                            </li>
                         @endforeach
                     </ul>
                 </div>
