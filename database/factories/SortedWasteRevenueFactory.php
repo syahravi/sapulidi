@@ -34,7 +34,7 @@ class SortedWasteRevenueFactory extends Factory
             'waste_type_id' => $wasteType->id,
             'sold_weight' => $soldWeight,
             'amount_received' => $amountReceived,
-            'sale_date' => $this->faker->dateTimeBetween('-1 year', 'now')->format('Y-m-d'),
+            'sale_date' => $this->faker->dateTimeBetween('-3 months', 'now')->format('Y-m-d'),
         ];
     }
 }
