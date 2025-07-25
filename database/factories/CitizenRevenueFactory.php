@@ -28,7 +28,7 @@ class CitizenRevenueFactory extends Factory
             'citizen_name' => $this->faker->name(),
             'waste_weight' => $wasteWeight,
             'amount_paid' => $amountPaid,
-            'transaction_date' => $this->faker->dateTimeBetween('-1 year', 'now')->format('Y-m-d'),
+            'transaction_date' => $this->faker->dateTimeBetween('-3 months', 'now')->format('Y-m-d'),
         ];
     }
 }
