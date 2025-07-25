@@ -23,7 +23,7 @@ class IncomingWasteFactory extends Factory
     {
         return [
             'bag_count' => $this->faker->numberBetween(1, 20), // Jumlah kantong antara 1 hingga 20
-            'entry_date' => $this->faker->dateTimeBetween('-1 year', 'now')->format('Y-m-d'), // Tanggal dalam 1 tahun terakhir
+            'entry_date' => $this->faker->dateTimeBetween('-3 months', 'now')->format('Y-m-d'), // Tanggal dalam 1 tahun terakhir
             'collector_name' => $this->faker->name(), // Gunakan ini untuk nama umum
         ];
     }
