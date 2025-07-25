@@ -30,7 +30,7 @@ class SortedWasteFactory extends Factory
         return [
             'waste_type_id' => $wasteType->id,
             'weight' => $this->faker->randomFloat(2, 0.1, 20), // Berat antara 0.10 hingga 20.00 kg
-            'sorting_date' => $this->faker->dateTimeBetween('-1 year', 'now')->format('Y-m-d'),
+            'sorting_date' => $this->faker->dateTimeBetween('-3 months', 'now')->format('Y-m-d'),
             'status' => $this->faker->randomElement(['dijual', 'dibuang']),
         ];
     }
