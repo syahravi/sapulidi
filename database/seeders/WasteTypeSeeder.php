@@ -31,5 +31,9 @@ class WasteTypeSeeder extends Seeder
         WasteType::create(['name' => 'Kertas', 'description' => 'Kertas bekas, kardus, dll.', 'unit_of_weight' => 'kg']);
         WasteType::create(['name' => 'Kaca', 'description' => 'Botol kaca, pecahan kaca, dll.', 'unit_of_weight' => 'kg']);
         WasteType::create(['name' => 'Logam', 'description' => 'Kaleng, besi, aluminium, dll.', 'unit_of_weight' => 'kg']);
+
+        // --- TAMBAHKAN BARIS INI UNTUK SAMPAH CAMPURAN ---
+        WasteType::create(['name' => 'Sampah Campuran', 'description' => 'Sampah yang tidak terpilah atau kombinasi berbagai jenis sampah.', 'unit_of_weight' => 'kg']);
+        // --------------------------------------------------
     }
 }

@@ -18,10 +18,10 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             WasteTypeSeeder::class,
-            IncomingWasteSeeder::class,
-            SortedWasteSeeder::class,
-            CitizenRevenueSeeder::class,
-            SortedWasteRevenueSeeder::class,
+            // IncomingWasteSeeder::class,
+            // SortedWasteSeeder::class,
+            // CitizenRevenueSeeder::class,
+            // SortedWasteRevenueSeeder::class,
         ]);
     }
 }
