@@ -10,10 +10,22 @@ class EditUser extends EditRecord
 {
     protected static string $resource = UserResource::class;
 
-    protected function getHeaderActions(): array
+    protected function getFormActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+             Actions\Action::make('save')
+                ->label('Simpan')
+                ->submit('save'),
+
+             Actions\Action::make('cancel')
+                ->label('Kembali')
+                ->url(static::getResource()::getUrl())
+                ->color('secondary'),
         ];
+    }
+
+    protected function getRedirectUrl(): string
+    {
+        return static::getResource()::getUrl('index');
     }
 }
